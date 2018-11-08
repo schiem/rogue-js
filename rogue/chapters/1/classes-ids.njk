@@ -1,0 +1,98 @@
+---
+tags: 
+    - article
+    - chapter-one
+layout: article.njk
+pageTitle: Classes and Ids
+title: "Making a dungeon, the right way"
+next: attributes
+date: 2018-01-02
+---
+<h2>Using HTML Correctly</h2>
+<p>Did it seem inappropriate to use a table to create a game background? Good, because it was.  Back in the 1990s and early 2000s, most website layouts were created using tables.  This wasn't because they were bad developers, but because they had a restricted set of tools—the only best to create a reasonable columned layout was with tables.</p>
+
+<p>More recently, we've developed tools to assist in laying out pages nicely.  This allows us to use HTML tags in a more appropriate manner, which is often referred to as <b>Semantic HTML</b>.  The idea behind semantic HTML is that each element type has a specific purpose, and should only be used for that purpose.</p>
+
+<p>So what about our case, given that there probably isn't a <code class='lang-html'>&lt;layout-background-for-game&gt;</code> element?  In addition to all of the specific tags that HTML offers, there are two generic tags that we'll be using here.  The generic tags are useful for when another tag type doesn't apply.  They are:</p>
+<ul>
+    <li><code class='lang-html'>&lt;div&gt;</code></li>
+    <li><code class='lang-html'>&lt;span&gt;</code></li>
+</ul>
+
+<p>The main difference between <code class='lang-html'>&lt;div&gt;</code> and <code class='lang-html'>&lt;span&gt;</code> is in their <b>display</b> type.</p>
+
+<h2>Display</h2>
+<p>Each HTML element has a built in type of <b>display</b>.  HTML has a number of display types—there are four that we'll look at here:</p>
+
+<ul>
+    <li><code class='lang-html'>block</code>: Elements with <code class='lang-html'>display: block</code> represent a square block area.  By default it will become the entire width of it's parent, and can easily have the width and height manipulated. <code class='lang-html'>&lt;p&gt;</code> is a block level element, because it is meant to wrap an entire standalone block of text.</li>
+    <li><code class='lang-html'>inline</code>: Used for elements that lay out next to one another inline. An example of this is an <code class='lang-html'>&lt;a&gt;</code> tag. If you place an <code class='lang-html'>&lt;a&gt;</code> inside of a <code class='lang-html'>&lt;p&gt;</code> it will sit nicely next to all the other text instead of breaking out of it.  Another way to think of it is that an inline element won't change the layout, only the appearance. </li>
+    <li><code class='lang-html'>table</code>: Represents a table.  We've already seen how this behaves.</li>
+    <li><code class='lang-html'>none</code>: Elements with <code class='lang-html'>display: none</code> are completely hidden.  For the purpose of the document, it effectively acts as if it didn't exist.
+</ul>
+
+<h2>Recreating our background</h2>
+
+<p>Now that we know not to use a <code class='lang-html'>&lt;table&gt;</code>, we can switch out layout to using <code class='lang-html'>&lt;div&gt;</code> and <code class='lang-html'>&lt;span&gt;</code> (see figure 1-2).</p>
+
+<figure>
+    <img src="/assets/images/1-2.svg" alt="A grid laid out using divs and spans for markup.  It also has a character with arrows, indicating that it can move to any adjacent square." />
+    <figcaption><i>Figure 1-2</i></figcaption>
+</figure>
+
+<p>Our HTML will look something like this: </p>
+<pre><code class='lang-html'>
+    &lt;html&gt;
+        &lt;body&gt;
+            &lt;div id='background'&gt;
+                &lt;div class='row'&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class='row'&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                    &lt;span class='cell'&gt;.&lt;/span&gt;
+                &lt;/div&gt;
+                ...
+            &lt;/div&gt;
+        &lt;/body&gt;
+    &lt;/html&gt;
+</pre></code>
+
+<p>Which should give you:</p>
+
+<iframe width="101" height="250" src="../code/1-2/"></iframe>
+
+<p>One thing to note is that our <code class='lang-html'>&lt;span&gt;</code> tags don't actually do anything.  Remember, <code class='lang-html'>&lt;span&gt;</code> tags are inline elements, and inline elements don't change the layout at all.  However, without those all we have are a string of periods, and we'll need a way to reference individual tiles of our game board later.  Another way to think of it is that it turns it into a collection of elements that we can access, instead of a bunch of periods.</p>
+<p>Looks pretty much the same, right?  There are a few differences, the grid seems to be a bit more squished and looks kind of weird.  The goal was to recreate it using more semantically correct HTML, which will also give us much more flexibility when making it look different.  You might have noticed the <code class='lang-html'>class</code> and the <code class='lang-html'>id</code> attributes.  Those aren't strictly necessary at this point, but they add a level of convenience, similar to the <code class='lang-html'>&lt;span&gt;</code> tags.</p>
+
+<h2>Classes and IDs</h2>
+
+<p>Classes and Ids add a way for the browser to create groups of HTML elements without relying on the tag type.  If you had another <code class="lang-html">&lt;span&gt;</code> somewhere in the document, it would be helpful for the browser to know that we <i>don't</i> want to treat it the same as the background of our game.  Giving it a class of 'cell' lets us differentiate that.</p>
+
+<p>The main difference between classes and ids is that there can only be one of each Id in a page.  We can use it on our game background because we can be pretty sure that we're not going to make multiple backgrounds at this point</p>
+
+<p>For the sake of our game, we can now think of our world as being made up of <code class="lang-css">.row</code> and <code class="lang-css">.cell</code> instead of using our markup (see figure 1-3).  I put a <code class="lang-css">.</code> in front of them so that we know that we're talking about classes.  If I was referring to an ID, I would use <code class="lang-css">#</code>.<p>
+
+<figure>
+    <img src="/assets/images/1-3.svg" alt="A grid laid out using rows and columns instead of markup.  It also has a character with arrows, indicating that it can move to any adjacent square." />
+    <figcaption><i>Figure 1-3</i></figcaption>
+</figure>
+
+<p>As of right now, the classes don't do anything; removing them won't change the appearance of the page at all, but they'll be very useful later.</p>

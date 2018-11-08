@@ -1,0 +1,212 @@
+---
+tags: 
+    - article
+    - chapter-one
+layout: article.njk
+pageTitle: HTML Tags
+title: "Making a dungeon: HTML"
+next: classes-ids
+date: 2018-01-01
+---
+ 
+ <h2>Introduction to HTML</h2>
+ <p>Back when the web was first created, it was entirely used for displaying documents that consisted largely of text.  HTML (HyperText Markup Language) was created as a way to structure documents so web browsers would know how to display them.</p> 
+
+
+ <p>Nearly every web page you load today still uses HTML.  All HTML consists of various elements, which are tag names wrapped in <code class="lang-html">&lt;</code> and <code class='lang-html'>&gt;</code>.  <b>Element</b> and <b>tag</b> will be used somewhat interchangeably throughout this document, and the difference is mostly semantic.</p>
+<ul>
+    <li><b>tags</b> refer exclusively to the opening and closing pieces. For example, a paragraph tag is &lt;p&gt;.  There are opening tags (<code class='lang-html'>&lt;p&gt;</code>) and closing tags (<code class='lang-html'>&lt;/p&gt;</code>), which denote the beginning and end of an element.
+    <li><b>elements</b> refer to the entire block in the document, including the content.  A paragraph element may be <code class='lang-html'>&lt;p&gt;This is a paragaph element.&lt;/p&gt;</code>, which includes both the opening and closing tags.
+</ul>
+<p>There are several types of tags that are self-closing, which means that they don't have a closing tag.  One example of this is an image (<code class='lang-html'>&lt;img&gt;</code>).  An image tag has it's content contained within the tag itself, in the form a <code class="lang-html">src</code> attribute.</p>
+
+<h2>Attributes</h2>
+
+<p>In addition to content, as with the paragraph above, HTML elements can also have <b>attributes</b>.  An attribute will impart some further meaning or context to the HTML element.  For example, the <code class='lang-html'>&lt;img&gt;</code> tag above could be given a <code>src</code> attribute, which tells the document what image to load.  A full image element might look like <code class='lang-html'>&lt;img src="https://example.com/image.jpg"&gt;</code>, which would load the image from example.com.  It doesn't make sense for an image to have any other content, so it closes itself.</p>
+
+<p>Attributes can also be used to add specific stylings to elements, which we'll see later.  Some other types of tags that we may encounter are:</p>
+<ul>
+    <li>
+        <code class='lang-html'>&lt;p&gt;</code>: Paragraph
+    </li>
+    <li>
+        <code class='lang-html'>&lt;a&gt;</code>: Anchor, which contain links
+    </li>
+    <li>
+        <code class='lang-html'>&lt;ul&gt;</code>: An unordered list
+    </li>
+    <li>
+        <code class='lang-html'>&lt;li&gt;</code>: An element in a list
+    </li>
+    <li>
+        <code class='lang-html'>&lt;table&gt;</code>: A table
+    </li>
+</ul>
+
+<p>These elements can be nested inside one another to create complex structures.  You can think of a basic HTML document the same way you would a Microsoft Word document.  If you were writing an essay, you might end up with something like:</p>
+
+<pre><code class='lang-html'>&lt;body&gt;
+    &lt;h1&gt;My Essay&lt;/h1&gt;
+    &lt;p&gt;Introduction paragraph &lt;a&gt;Link to source number 1&lt;/a&gt;.&lt;/p&gt;
+&lt;/body&gt;</code></pre>
+
+
+<h2>Back to the Game</h2>
+<p>For our purposes we'll be using HTML to layout the world of our game.  Our game characters need a place to run around, so let's start by building a big, empty room.  Our world is going to essentially be a grid, where the characters can step through each individual square in the grid to move around.  See figure 1-1, where our character is represented by C that can move to any adjacent square.  For our purposes, we'll be using a <code class="lang-html">&lt;table&gt;</code> tag.  Let's make a 10x10 table to match the figure, where each row of the grid is marked by a table row (<code class="lang-html">&lt;tr&gt;</code>) and each cell of the grid is marked by a table cell (<code class="lang-html">&lt;td&gt;</code>.  As a quick note, I'm not going to provide an HTML reference for you.  If you have any questions about how a particular type of element works, the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">MDN</a> has a great resource for it.</p>
+
+<figure>
+    <img src="/assets/images/1-1.svg" alt="A grid laid out using HTML table markup.  It also has a character with arrows, indicating that it can move to any adjacent square." />
+    <figcaption><i>Figure 1-1</i></figcaption>
+</figure>
+
+
+<p>For now, open up a new file in your favorite text editor and insert a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table">table</a> element with 10 rows.  Each row should have 10 columns.</p>
+
+<p><code class='lang-html'>&lt;tr&gt;</code> represents a table row, so there will be 10 of those.  <code class='lang-html'>&lt;td&gt;</code> is a table cell, and each row will have 10 cells nested inside of it. There also a <code class='lang-html'>&lt;tbody&gt;</code>, which is the body of the table.  Tables can also be given a heading, but we don't need that.  We'll also put a <code>.</code> inside all of the table cells so we can see where the grid is.</p>
+
+<pre><code class='lang-html'>&lt;html&gt;
+    &lt;body&gt;
+        &lt;table&gt;
+            &lt;tbody&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                    &lt;td&gt;.&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/tbody&gt;
+        &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>The <code class='lang-html'>&lt;html&gt;</code> tells the browser that the document should be treated as HTML.  The <code class='lang-html'>&lt;body&gt;</code> tag tells it that we're looking at the main body content.</p>
+
+<p> Give it a memorable name with a .html extension, then open it in your browser (ctrl + o, then navigate to it).  You should see a hideous grid, like so:</p>
+
+<iframe width="101" height="250" src="../code/1-1/"></iframe>
+
+<p>Now we have our background, let's move on.</p>

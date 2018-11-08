@@ -1,0 +1,18 @@
+{%- if type and type == "ajax" -%}
+    {{ content | safe }}
+{%- else -%}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{pageTitle}}</title>
+        <link href="https://fonts.googleapis.com/css?family=Catamaran:300,400,700|Merriweather" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+        <script src="/assets/js/main.js" type="text/javascript" async defer></script>
+    </head>
+    <body>
+        {{ content | safe }}
+    </body>
+</html>
+{%- endif -%}

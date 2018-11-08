@@ -1,0 +1,12 @@
+---
+layout: base.njk
+---
+{%- if type and type == "ajax" -%}
+    <h2>{{title}}</h2>
+    {{ content | safe }}
+{%- else -%}
+    <main>
+        <h1>{{title}}</h1>
+        {{ content | safe }}
+    </main>
+{%- endif -%}
