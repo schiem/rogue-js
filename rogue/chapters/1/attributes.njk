@@ -5,9 +5,46 @@ tags:
 layout: article.njk
 pageTitle: HTML Attributes
 title: "Making a Prettier Dungeon"
-next: attributes
+next: html-wrap
 date: 2018-01-03
 ---
-<h2>Fixing weirdness about the grid</h2>
+<h2>The background is kinda hideous</h2>
 
-<p>Our grid from the last lesson is looking a little weird, and not really at all like a game board that we would want  
+<p>In addition to the <code class='lang-html'>class</code> and <code class='lang-html'>id</code> attributes, there are quite a few other attributes that we can attach.  We'll look at another one, since right now the background is just black dots on a white field.  There's more space between the dots vertically than horizontally, and there's nothing interesting going on. We can start by prettying it up with the new attribute, <code class='lang-html'>style</code>.</p>
+
+<p>With the <code class='lang-html'>style</code> attribute, we can change the way our HTML looks and lays out, using <b>CSS</b>.  CSS stands for Cascading StyleSheet, and is used to apply styles to our document.  There will be a more in depth look at CSS in the next chapter, and use it to make the game look pretty.  We'll start with some basics here.</p>
+
+<p>One major theme of older roguelikes is that the background is black with white text on it (figure 1-4).  That seems like a good place to start, but first let's look at how CSS is strucutred.  CSS is made up of a rule, where each rule controls one specific property of an element.  There are a few rules about how we have to format our CSS.</p>
+
+<figure>
+    <img src="/assets/images/1-4.png" alt="A picture of the roguelike angband" />
+    <figcaption><i>Figure 1-4, The game Angband</i></figcaption>
+</figure>
+
+<ol>
+    <li>Individual rules are formatted as <code class="lang-css">property: value</code>, for example <code class="lang-css">font-size: 12px</code></li>
+    <li>Rules are separated by a semicolon, like <code class="lang-css">property1: value1; property2: value2;</code></li>
+    <li>If a rule has multiple properties, they are separated by whitespace, for example: <code class="lang-css">padding: 10px 20px</code></li>
+</ol>
+
+<p>In addition, the amount of whitespace doesn't matter to CSS; one space is the same as one hundred as far as CSS is concerned.</p>
+
+<p>For our use, we'll start with two of the basic CSS rules: <code class="lang-css">background-color</code> and <code class="lang-css">color</code>.  If it's not apparent, those properties control the color of the background and the color of the text, respectively.</p>
+
+<p>There are quite a few ways we can define colors in HTML; we can use RGB(A), HSL(A), or hexadecimal.  RGBA stands for red, blue, green, and alpha (transparency), which can each range from 0 to 255.  A value of <code class="lang-css">rgba(0, 0, 0, 1);</code> is black, while <code class="lang-css">rgba(255, 255, 255, 1);</code> is white.  HSLA stands for hue, saturation, lightness, alpha (transparency), which we won't be using.  Finally, Hexadecimal is a base-16 version of counting.  While that might not mean much, the important part is that there are 6 digits, each ranging from 0 to f.  The first two digits represent red, the second two are blue, and the third two are green.  <code class="lang-css">#000000"</code> is black;<code class="lang-css">#ffffff</code> is white; <code class="lang-css">#ff0000</code> is pure red.  This tutorial will exclusively use the RGBA system.</p>
+
+<p>For the code portion, those properties will be added to the <code class="lang-html">background</code> div.  The entire element should look like:</p>
+
+<pre><code class="lang-html">
+&lt;div id="background" style="background: rgba(0, 0, 0, 1); color: rgba(255, 255, 255, 1);"&gt;
+</code></pre>
+
+<p>And it should look like:</p>
+
+<iframe width="101" height="250" src="../code/1-3/"></iframe>
+
+<p>One other thing about that example that may appear different: those are no longer periods.  Instead, they've been switched to middle periods, <code>&middot;</code>.  This is because periods live at the bottom of the line, and we want them in the middle.  You can either copy them in, or you can type out <code class="lang-html">&amp;middot;</code>.  HTML has some characters that either aren't standard on a keyboard, or are reserved and special.  If you think about it, how would you type a literal <code class="lang-html">&lt;</code> without opening an HTML tag?  You use a special code, in that case <code class="lang-html">&amp;lt;</code>.</p>
+
+<p>Now that we have the basics of css, let's move get into some more advanced properties.  Our dungeon still looks terrible, but don't worry!  We'll actually change that!</p>
+
+

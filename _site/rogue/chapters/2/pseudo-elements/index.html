@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pseudo-Elements</title>
+        <link href="https://fonts.googleapis.com/css?family=Catamaran:300,400,700|Merriweather" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+        <script src="/assets/js/main.js" type="text/javascript" async defer></script>
+    </head>
+    <body>
+        
+
+
+        
+
+        
+    
+        
+
+        
+    
+        
+
+        
+    
+        
+
+        
+    
+        
+
+        
+    
+        
+            
+        
+
+        
+            
+        
+    
+        
+
+        
+    <main>
+    <article>
+        
+            <nav class="pagination previous">
+                <a class="button floating circle" href=/rogue/chapters/2/css-units/>←<span class="sr-only"> Previous Article</span></a>
+            </nav>
+        
+        <h1>Adding game Content</h1>
+        <h2>The Main Character</h2>
+
+<p>It's finally come time to add the main character.  First we need to pick a symbol to represent the character. I'm going to use a happy lil gent, <code>&#9058;</code>, you can use whatever you want (literally, pick anything, emojis are fair game).</p>
+
+<p>To add the character, we could just drop that symbol straight into the first cell, but then it wouldn't be readily identifiable from a code perspective. Instead, it should be wrapped in another element.  In addition to using CSS classes to target with styles, they'll also be used to identify specific entities.</p>
+
+<p>Add the following to the first cell in the first row.  You can replace the text with whatever you want:</p>
+
+<pre><code class="lang-html">
+...
+[[row]]
+    [[span class="cell"]]
+        &middot;
+        [[span class="char sprite" id="main"]]
+            &#9058;
+        [[/span]]
+    [[/span]]
+[[row]]
+</code></pre>
+
+<p>Looks like our happy lil guy messed up our nice grid.  This is because the background dot and the sprite overflowed the <code>15px</code> width that we gave our cells, causing it to drop to 2 lines.  We'll need a few new styles to fix this.</p>
+
+<h2>Positioning</h2>
+<p>By default, all elements are positioned <code class="lang-css">static</code>, which essentially says that they'll be where the browser tells them to go, and that's that.  There are a few different positionings that can be used:</p>
+
+<ul>
+    <li><code class="lang-css">relative</code>: Changes position based on the element's original, static position.  <i>For example: Adding <code class="lang-css">left: 2px</code> to a relative element moves it 2px further from the left of where it was sitting</i></li>
+    <li><code class="lang-css">absolute</code>: Changes the position based on the first non-static parent dimensions. <i>For example: Adding <code class="lang-css">left: 2px</code> to an absolute element places it 2px from the left edge of the parent element, if the parent element is not statically positioned</i></li>
+    <li><code class="lang-css">fixed</code>: Changes the position relative to the viewport (screen).  <i>For example: Adding <code class="lang-css">left: 2px</code> to a fixed element puts it 2px from the left edge of the screen</i></li>
+</ul>
+
+<p>The other thing that absolute and fixed positioning do is remove the element from the <b>document flow</b>.  The document takes each element into account when positioning every other element; with fixed and absolute positioning, those elements are no longer taken into account, so they don't influence any other elements (including their parents).</p>
+
+<p>It turns out that this side effect is exactly what we want; <code class="lang-css">position: absolute</code> will allow the different contents of the cells to stack on top of one another.  If a cell contains 6 different items, we want them to stack on top of one another instead of destroying the document.</p>
+
+<pre><code class="lang-css">
+.cell {
+    position: relative;
+    ...
+}
+.sprite {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+</code></pre>
+
+<p>All of font based properties like <code class="lang-css">font-size, line-height</code> are inherited from the cell, so we don't need to change those.  However, you might notice that things are laying out weird now in the top line.  This is another CSS quirk, which relates to a new property called <code class="lang-css">vertical-align</code>.  This will very likely be a source of a ton of frustration for you at some point in the future.  <code class="lang-css">vertical-align</code> controls how inline (or inline-block) elements layout next to each other.  If we put an image in the middle of a line, <code class="lang-css">vertical-align</code> would tell it if it was supposed to align with the text along the top, bottom, or middle. In our case, the browser has decided that our element withh <code class="lang-html">position: absolute</code> has thrown everything off (the actual reason is that there isn't technically a text element in it, so the browser moves the font baseline).  Adding any <code class="lang-css">vertical-align</code> that isn't baseline will work.  I prefer <code>middle</code>.</p>
+
+<pre><code class="lang-css">
+.cell {
+    position: relative;
+    ...
+    vertical-align: middle;
+}
+.sprite {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+</code></pre>
+
+<p>Woah! There it is! But the dot is still visible through it.  Adding a background to <code class="lang-css">.sprite</code> will fix that.</p>
+
+<pre><code class="lang-css">
+.sprite {
+    ...
+    background: rgba(0, 0, 0, 1);
+}
+</code></pre>
+
+<iframe width="151" height="151" src="../code/2-2/"></iframe>
+
+        
+            <nav class="pagination next">
+                <a class="button floating circle" href=/rogue/chapters/2/css-units/>→<span class="sr-only"> Next Article</span></a>
+            </nav>
+        
+    </article>
+</main>
+
+    </body>
+</html>

@@ -80,6 +80,11 @@ article {
 article img {
     max-width: 100%;
 }
+article figure {
+    margin: auto;
+    text-align: center;
+    margin-bottom: 20px;
+}
 article figcaption {
     font-size: 0.8em;
 }
@@ -122,7 +127,8 @@ a.button {
     color: #fff;
     text-align: center;
     padding: 8px;
-    transition: all 200ms linear;
+    transition: transform 200ms linear, box-shadow 200ms linear;
+    transform: translateY(0);
     text-decoration: none;
     border-radius: 6px;
 }

@@ -14,6 +14,11 @@ article {
 article img {
     max-width: 100%;
 }
+article figure {
+    margin: auto;
+    text-align: center;
+    margin-bottom: 20px;
+}
 article figcaption {
     font-size: 0.8em;
 }

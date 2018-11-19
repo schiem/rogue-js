@@ -6,3 +6,4 @@ if [ ! -d "_site/assets/images" ]; then
 fi
 
 cp -r assets/images/* _site/assets/images/
+echo "Copied images"

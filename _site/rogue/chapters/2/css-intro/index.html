@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Intro To CSS</title>
+        <link href="https://fonts.googleapis.com/css?family=Catamaran:300,400,700|Merriweather" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+        <script src="/assets/js/main.js" type="text/javascript" async defer></script>
+    </head>
+    <body>
+        
+
+
+        
+
+        
+    
+        
+
+        
+    
+        
+
+        
+    
+        
+            
+        
+
+        
+    
+        
+
+        
+            
+        
+    
+        
+
+        
+    
+        
+
+        
+    <main>
+    <article>
+        
+            <nav class="pagination previous">
+                <a class="button floating circle" href=/rogue/chapters/1/html-wrap/>←<span class="sr-only"> Previous Article</span></a>
+            </nav>
+        
+        <h1>More CSS Attributes</h1>
+        <h2>Re-introduction to CSS</h2>
+
+<p>So far we've only applied CSS rules using attributes on HTML tags, but there's a much simpler way to apply CSS tags in bulk, via a special type of tag, <code class="lang-html">&lt;style&gt;</code>.  Style tags are used to apply CSS rules to a large number of HTML elements at once, using <b>selectors</b>.  Selectors apply to elements based on element type, id, and class.</p>
+
+<p>For example, if we wanted to rewrite our previous styles in a style tag, we could do the following:</p>
+
+<pre><code class="lang-html">
+&lt;style&gt;
+    #background {
+        background: rgba(0, 0, 0, 1);
+        color: rgba(255, 255, 255, 1);
+    }
+&lt;/style&gt;
+</code></pre>
+
+<p><code>#</code> is used to select based on id (remember, there can only be one of a given id on each page), <code>.</code> is used to select based on class, and the tag name is used to separate based on what tag you're using.  The same rules can be applied to multiple selectors by separating them with a <code>,</code>.</p>
+
+<pre><code class="lang-css">
+.cell,
+#background {
+    background: rgba(0, 0, 0, 1);
+    color: rgba(255, 255, 255, 1);
+}
+</code></pre>
+
+
+<p>This applies the background and the font to anything with class cell, <i>or</i> anything with the id background.  Id selectors are the most efficient, so they should be used if possible.</p>
+
+<p>You can also select nested elements by separating the selector with a space (<code class="lang-css">#background .cell</code> selects elements with class cell nested inside of an element with id background).  These are all of the very basic selection rules, and should take us pretty far into our game.</p>
+
+
+<p>Go ahead and move the original styles into a style tag at the beginning of the document.  It should look identical, which is a little unfortunate.  Some more cleanup is necessary before we have something presentable looking.</p>
+
+        
+            <nav class="pagination next">
+                <a class="button floating circle" href=/rogue/chapters/2/css-units/>→<span class="sr-only"> Next Article</span></a>
+            </nav>
+        
+    </article>
+</main>
+
+    </body>
+</html>

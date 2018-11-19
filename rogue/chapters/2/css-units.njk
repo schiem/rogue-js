@@ -1,0 +1,128 @@
+---
+tags: 
+    - article
+    - chapter-two
+layout: article.njk
+pageTitle: Layout and Units
+title: "Layout and Units"
+next: pseudo-elements
+date: 2018-02-02
+---
+<h2>A new display</h2>
+<p>You may have noticed by now that our cell squares aren't, well, square.  Instead, they're taller than they are wide, and if you played around and replace one of the <code>&middot;</code> with another character, you may have noticed that the grid no longer perfectly lines up.</p>
+
+<p>You might recall from earlier that <code class="lang-css">block</code> elements let us define the width and height (since they layout as blocks in the page), while <code class="lang-css">inline</code> elements do not, since they stay in line with one another.  There's another type of display that gives the benefits of both, called <code class="lang-css">inline-block</code>, which lays out side by side (inline), while also allowing us to define the width and height (block).</p>
+
+<p>Go ahead and make all of the cells <code class="lang-css">inline-block</code>, using the <code class="lang-css">.cell</code> selector from the previous lesson.</p>
+
+<pre><code class="lang-css">
+.cell {
+    display: inline-block;
+}
+</code></pre>
+
+<h2>What units to use?</h2>
+<p>Now we can start to give our cells a fixed width and height, using the <code class="lang-css">width</code> and <code class="lang-css">height</code> properties.  There are 13 different units that are widely supported and could be used for width and height, and there are 4 that are most commonly used.</p>
+<ul>
+    <li><code class="lang-css">px</code>: The number of pixels</li>
+    <li><code class="lang-css">%</code>: The percentage, relative to the parent element</li>
+    <li><code class="lang-css">em</code>: Relative to <code class="lang-css">font-size</code> property.  <i>Example: if the <code class="lang-css">font-size</code> is <code class="lang-css">14px</code>, then <code class="lang-css">1em</code> is also <code class="lang-css">14px</code></i></li>
+    <li><code class="lang-css">rem</code>: The same as em, but relative to the font-size of the root element (usually the <code class="lang-html">&lt;body&gt;</code>)</li>
+</ul>
+
+<p>There's a lot of debate surrounding the "correct" unit to use.  In the past people used to advocate against <code class="lang-css">px</code> for accessibility reasons (people with vision impairment had a difficult time resizing the font), but browsers have recently addressed this.  Any more, there is no single correct answer for what unit you should use, so pick your favorite.  This tutorial will use <code class="lang-html">px</code> for everything, because I think it makes the most sense for a beginner to work with fixed sizes.</p>
+
+<p>That being said, we're going to make our cells 15px by 15px squares, which will give our room a total dimension of 150px by 150px (10x10).  We can define this with the <code class="lang-css">width</code> and <code class="lang-css">height</code> CSS properties, like so:</p>
+
+<pre><code class="lang-css">
+.cell {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+}
+#background {
+    width: 150px;
+    height: 150px;
+    background-color: rgba(0, 0, 0, 1);
+    color: rgba(255, 255, 255, 1);
+}
+</code></pre>
+
+<p>This appears to have broken everything.  Here's the first CSS quirk that we're running into (and trust me, there are a lot of CSS quirks) which you'll just need to remember and work around.  Most browsers count ANY whitespace between <code class="lang-css">inline</code> elements as a single space.  This includes newlines, and applies to <code class="lang-css">inline-block</code>.  So even though we told the browser that we wanted our cells to be a specific width, it put spaces in between them which messed everything up!  There's a small trick to fixing this, which is to give the parent a <code class="lang-css">font-size: 0</code>, which will make the spaces take up no room.  This will also have the side effect of giving the <code class='lang-css'>cell</code> a <code class='lang-css'>font-size</code> of 0, so we'll also need to fix that.</p>
+
+<pre><code class="lang-css">
+.cell {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    font-size: 15px;
+}
+#background {
+    width: 150px;
+    height: 150px;
+    background-color: rgba(0, 0, 0, 1);
+    color: rgba(255, 255, 255, 1);
+    font-size: 0;
+}
+</code></pre>
+
+<h2>A note on inheritance</h2>
+
+<p>One thing to note about CSS is that any properties relating to the text are inherited from the parents (<code class="lang-css">font-size, font-weight, color</code>, among others), while all other properties only apply to the parent element.  That's why setting the color on the background also sets it for the cells, but setting the width and height does not.</p>
+
+<h2>Finishing Formatting Touches</h2>
+
+<p>We're almost ready, but there are a few finishing touches that we need.  In order to make the <code class="lang-html">&middot;</code> actually sit in the middle, like we want it to, we need to chnage the <code class="lang-css">line-height</code>.  Since a block level element can have multiple lines of text (like a paragraph/<code class='lang-html'>&lt;p&gt;</code>), the text has the height of the lines set independently from the height of the overall container.  In our case, we know that we'll only every have one line of text (almost always a single character), so we want our line height to be the same as the container height. The background should also have a <code class="lang-css">line-height: 0;</code>, so the spaces don't take up any vertical space.</p>
+
+<pre><code class="lang-css">
+.cell {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    font-size: 15px;
+    line-height: 15px;
+}
+#background {
+    width: 150px;
+    height: 150px;
+    background-color: rgba(0, 0, 0, 1);
+    color: rgba(255, 255, 255, 1);
+    font-size: 0;
+    line-height: 0;
+}
+</code></pre>
+
+<p>Our dots should be also be centered horizontally, so give the background a <code class="lang-css">text-align: center</code>.  Similar to a Word Processor, you also have <code class="lang-css">left, right, justify</code> available.</p>
+
+<h2>The final word on fonts</h2>
+
+<p>The last property that we're going to set before we have our background looking the way it should is the actual font that we're using, with the <code class="lang-css">font-family</code> property.  We're going to be using the <code class="lang-css">monospace</code> font, which guarantees that every letter takes up exactly the same amount of space.</p>
+
+
+Altogether, that gives us:
+
+<pre><code class="lang-css">
+.cell {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    font-size: 15px;
+    line-height: 15px;
+}
+#background {
+    width: 150px;
+    height: 150px;
+    background-color: rgba(0, 0, 0, 1);
+    color: rgba(255, 255, 255, 1);
+    font-family: monospace;
+    font-size: 0;
+    line-height: 0;
+    text-align: center;
+}
+</code></pre>
+
+Which should look like:
+
+<iframe width="151" height="151" src="../code/2-1/"></iframe>
+
+<p>Looks like an actual background!  Next we'll add a character and get into a few minor game decisions.</p>
